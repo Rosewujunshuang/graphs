@@ -98,25 +98,15 @@ public class PureMRNodesAndEdgesJob {
 			
 			conf.setClass(AbstractMetaData.METADATA_CLASS, MetaDataFromConfigImpl.class, MetaData.class);
 
-			conf.setStrings(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_NAMES, "rekening", "integraalklantnummer", "klantnummer", "cddklasse", "individu_organisatie_code", "naam", "postcode", "woonplaats", "label");
-			conf.set(MetaDataFromConfigImpl.METADATA_NODE_ID_NAME, "rekening");
-			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "rekening", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "integraalklantnummer", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "klantnummer", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "cddklasse", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "individu_organisatie_code", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "naam", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "postcode", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "woonplaats", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "label", String.class, Object.class);
+			conf.setStrings(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_NAMES, "email", "name");
+			conf.set(MetaDataFromConfigImpl.METADATA_NODE_ID_NAME, "email");
+			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "email", String.class, Object.class);
+			conf.setClass(MetaDataFromConfigImpl.METADATA_NODE_PROPERTY_TYPE_PREFIX + "name", String.class, Object.class);
 
-			conf.setStrings(MetaDataFromConfigImpl.METADATA_EDGE_PROPERTY_NAMES, "from", "to", "netto", "eerste", "laatste", "aantal");
+			conf.setStrings(MetaDataFromConfigImpl.METADATA_EDGE_PROPERTY_NAMES, "from", "to", "counts");
 			conf.setClass(MetaDataFromConfigImpl.METADATA_EDGE_PROPERTY_TYPE_PREFIX + "from", String.class, Object.class);
 			conf.setClass(MetaDataFromConfigImpl.METADATA_EDGE_PROPERTY_TYPE_PREFIX + "to", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_EDGE_PROPERTY_TYPE_PREFIX + "netto", Long.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_EDGE_PROPERTY_TYPE_PREFIX + "eerste", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_EDGE_PROPERTY_TYPE_PREFIX + "laatste", String.class, Object.class);
-			conf.setClass(MetaDataFromConfigImpl.METADATA_EDGE_PROPERTY_TYPE_PREFIX + "aantal", Long.class, Object.class);
+			conf.setClass(MetaDataFromConfigImpl.METADATA_EDGE_PROPERTY_TYPE_PREFIX + "counts", Long.class, Object.class);
 
 			Job nodePropertiesPrepareJob = new Job(conf, "Prepare node properties job.");
 			nodePropertiesPrepareJob.setGroupingComparatorClass(AscLongDescLongKeyGroupingComparator.class);
@@ -400,7 +390,7 @@ public class PureMRNodesAndEdgesJob {
 			Neo4JUtils.writeNeostore(output, conf);
 			Neo4JUtils.writeNodeIds(nrOfNodes, output, conf);
 			Neo4JUtils.writeEdgeIds(nrOfEdges, output, conf);
-			Neo4JUtils.writeSingleTypeStore("TRANSFER_TO", output, conf);
+			Neo4JUtils.writeSingleTypeStore("CONNECTED_TO", output, conf);
 
 
 		} catch (Exception e) {

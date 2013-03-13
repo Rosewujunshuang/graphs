@@ -157,7 +157,7 @@ public class IterateWithFlagsJob {
 		@Override
 		public void complete(FlowProcess flowProcess, AggregatorCall<MaxPartitionToAdjacencyListContext> aggregatorCall) {
 			MaxPartitionToAdjacencyListContext context = aggregatorCall.getContext();
-			Tuple result = new Tuple(context.partition, context.source, StringUtils.joinObjects(",", context.targets), StringUtils.joinObjects(",", context.flags));
+			Tuple result = new Tuple(context.partition, context.source, StringUtils.join(",", context.targets), StringUtils.join(",", context.flags));
 			aggregatorCall.getOutputCollector().add(result);
 		}
 	}

@@ -87,7 +87,7 @@ public class PrepareJob {
 		@Override
 		public void complete(FlowProcess flowProcess, AggregatorCall<ToAdjacencyListContext> aggregatorCall) {
 			ToAdjacencyListContext context = aggregatorCall.getContext();
-			Tuple result = new Tuple(context.partition, context.source, StringUtils.joinObjects(",", context.targets));
+			Tuple result = new Tuple(context.partition, context.source, StringUtils.join(",", context.targets));
 			aggregatorCall.getOutputCollector().add(result);
 		}
 	}

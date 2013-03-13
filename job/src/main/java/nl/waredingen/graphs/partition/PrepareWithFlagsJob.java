@@ -106,7 +106,7 @@ public class PrepareWithFlagsJob {
 				context.partition = context.source;
 			}
 			
-			Tuple result = new Tuple(context.partition, context.source, StringUtils.joinObjects(",", context.targets), StringUtils.joinObjects(",", context.flags));
+			Tuple result = new Tuple(context.partition, context.source, StringUtils.join(",", context.targets), StringUtils.join(",", context.flags));
 			aggregatorCall.getOutputCollector().add(result);
 		}
 	}

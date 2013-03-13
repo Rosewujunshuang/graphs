@@ -149,7 +149,7 @@ public class IterateJob {
 		@Override
 		public void complete(FlowProcess flowProcess, AggregatorCall<MaxPartitionToAdjacencyListContext> aggregatorCall) {
 			MaxPartitionToAdjacencyListContext context = aggregatorCall.getContext();
-			Tuple result = new Tuple(context.partition, context.source, StringUtils.joinObjects(",", context.targets));
+			Tuple result = new Tuple(context.partition, context.source, StringUtils.join(",", context.targets));
 			aggregatorCall.getOutputCollector().add(result);
 		}
 	}
